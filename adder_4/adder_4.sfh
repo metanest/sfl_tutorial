@@ -1,0 +1,15 @@
+// モジュールの宣言
+declare adder_4 {
+#ifdef HDLANG_SFL
+    input a<4>, b<4>;
+    input c_i;
+    output o<4>;
+    output c_o;
+#endif
+#ifdef HDLANG_NSL
+    input a[4], b[4];
+    input c_i;
+    output o[4];
+    output c_o;
+#endif
+}

@@ -1,0 +1,5 @@
+// vim:set ft=sfl:
+declare andor {
+    input i1, i2, i3;
+    output o1, o2;
+}

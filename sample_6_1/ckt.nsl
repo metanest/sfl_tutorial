@@ -1,0 +1,28 @@
+// vim:set ft=nsl:
+#define HDLANG_NSL
+#include "decoder.sfh"
+declare ckt simulation {
+    output led7[7];
+}
+module ckt {
+    reg count[5] = 0b00000;
+    reg running = 0b0;
+
+    decoder decoder1;
+
+    _init {
+        running := 0b1;
+    }
+
+    any {
+        (running & ~count[4]) : {
+            count := count + 0b00001;
+
+            decoder1.hex = count[3:0];
+            led7 = decoder1.led7;
+
+            _write("%d %x\n", count[3:0], decoder1.led7);
+        }
+        (running & count[4]) : { _finish("simulation finished"); }
+    }
+}

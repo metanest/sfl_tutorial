@@ -1,0 +1,16 @@
+%d HDLANG_SFL
+%i "adder_4.sfh"
+// モジュールの定義
+module adder_4 {
+    // 外部端子の定義 …… nslcoreでは省略できるので省略する
+
+    // 内部端子の定義
+    wire tmp<5>;
+
+    // 共通動作の定義
+    par {
+        tmp = ((0b0 || a) + (0b0 || b)) + (0b0000 || c_i);
+        o = tmp<3:0>;
+        c_o = tmp<4>;
+    }
+}

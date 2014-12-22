@@ -1,0 +1,29 @@
+// vim:set ft=nsl:
+#define HDLANG_NSL
+#include "morse.sfh"
+declare ckt simulation {
+    output morse_o;
+    func_out oe;
+}
+module ckt {
+    reg count[6] = 0o00;
+    reg running = 0b0;
+
+    morse morse1;
+
+    _init {
+        running := 0b1;
+    }
+
+    any {
+        (running & ~count[5]) : {
+            count := count + 0o01;
+            morse1.enable();
+        }
+        (running & count[5]) : { _finish("simulation finished"); }
+    }
+    func morse1.oe {
+        oe();
+        morse_o = morse1.o;
+    }
+}

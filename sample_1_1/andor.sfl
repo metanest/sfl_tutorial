@@ -1,0 +1,11 @@
+// vim:set ft=sfl:
+%i "andor.sfh"
+module andor {
+    input i1, i2, i3;
+    output o1, o2;
+
+    par {
+        o1 = i1 & i2;
+        o2 = i2 | i3;
+    }
+}

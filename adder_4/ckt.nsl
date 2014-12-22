@@ -1,0 +1,29 @@
+// vim:set ft=nsl:
+#define HDLANG_NSL
+#include "adder_4.sfh"
+declare ckt simulation {
+    output o[4], c_o;
+}
+module ckt {
+    reg count[10] = 0b0000000000;
+    reg running = 0b0;
+
+    adder_4 adder;
+
+    _init {
+        running := 0b1;
+    }
+
+    any {
+        (running & ~count[9]) : {
+            count := count + 0o01;
+
+            adder.c_i = count[0];
+            adder.a = count[4:1];
+            adder.b = count[8:5];
+            o = adder.o;
+            c_o = adder.c_o;
+        }
+        (running & count[9]) : { _finish("simulation finished"); }
+    }
+}

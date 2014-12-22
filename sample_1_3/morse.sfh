@@ -1,0 +1,12 @@
+// vim:set ft=sfl:
+declare morse {
+    output o;
+#ifdef HDLANG_SFL
+    instrin enable;
+    instrout oe;
+#endif
+#ifdef HDLANG_NSL
+    func_in enable;
+    func_out oe;
+#endif
+}

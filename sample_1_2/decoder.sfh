@@ -1,0 +1,11 @@
+// vim:set ft=sfl:
+declare decoder {
+#ifdef HDLANG_SFL
+    input hex<4>;
+    output led7<7>;
+#endif
+#ifdef HDLANG_NSL
+    input hex[4];
+    output led7[7];
+#endif
+}

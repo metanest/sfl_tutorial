@@ -1,0 +1,28 @@
+// vim:set ft=nsl:
+#include "andor.sfh"
+declare ckt simulation {
+    output o1, o2;
+}
+module ckt {
+    reg count[6] = 0o00;
+    reg running = 0b0;
+
+    andor andor1;
+
+    _init {
+        running := 0b1;
+    }
+
+    any {
+        (running & ~count[5]) : {
+            count := count + 0o01;
+
+            andor1.i1 = count[0];
+            andor1.i2 = count[1];
+            andor1.i3 = count[2];
+            o1 = andor1.o1;
+            o2 = andor1.o2;
+        }
+        (running & count[5]) : { _finish("simulation finished"); }
+    }
+}

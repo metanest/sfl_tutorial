@@ -1,0 +1,31 @@
+// vim:set ft=sfl:
+%d HDLANG_SFL
+%i "morse.sfh"
+module morse {
+    reg_wr signal;
+    reg_ws s1;
+    reg_wr s2, s3, s4, s5;
+    reg_wr s6, s7, s8;
+
+    any {
+        0b1 : o = signal;
+
+        ^enable : par {
+            s1 := 0b1;
+            s2 := 0b0; s3 := 0b0; s4 := 0b0; s5 := 0b0;
+            s6 := 0b0; s7 := 0b0; s8 := 0b0;
+        }
+    }
+
+    instruct enable any {
+        0b1 : oe();
+        s1 : par { signal := 0b1; s1 := 0b0; s2 := 0b1; }
+        s2 : par { signal := 0b0; s2 := 0b0; s3 := 0b1; }
+        s3 : par { signal := 0b1; s3 := 0b0; s4 := 0b1; }
+        s4 : par { s4 := 0b0; s5 := 0b1; }
+        s5 : par { s5 := 0b0; s6 := 0b1; }
+        s6 : par { signal := 0b0; s6 := 0b0; s7 := 0b1; }
+        s7 : par { s7 := 0b0; s8 := 0b1; }
+        s8 : par { s8 := 0b0; s1 := 0b1; }
+    }
+}
